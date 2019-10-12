@@ -1,0 +1,24 @@
+creating.clear.shape=Clique para Limpar a Receita
+creating.tooltip.normal.name=Normal
+creating.tooltip.extreme.name=Extrema
+creating.tooltip=Usado para criar receitas %1$s
+creating.creative-only=Apenas no Criativo
+creating.usage=Como Usar:
+creating.usage.desc.line1=Botão Esquerdo do Mouse Incrementa em 1
+creating.usage.desc.line2=Botão Direito do Mouse Decrementa em 1
+creating.usage.desc.line3=Shift Click Esquerdo/Direito;
+creating.usage.desc.line4=Aumenta o Incremento/Decremento para 16
+creating.shape.control=Controle de Formato
+creating.shape.control.state.shaped=Formato Definido
+creating.shape.control.state.shapeless=Formato Indefinido
+creating.export=Exportar para o arquivo:
+creating.export.empty=A Receita está Vazia
+creating.export.no-output=A Receita precisa de um Resultado
+creating.export.no-changes=Nenhuma alteração foi feita
+creating.copy=Copiar para Área de Transferência
+
+// Normal
+container.normalcreatingtable.name=Bancada de Criação
+
+// Extreme
+container.extremecreatingtable.name=Bancada de Criação Extrema

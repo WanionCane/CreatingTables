@@ -1,0 +1,31 @@
+package wanion.creatingtables.block.normal;
+
+/*
+ * Created by WanionCane(https://github.com/WanionCane).
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import wanion.creatingtables.block.GuiCreatingTable;
+import wanion.creatingtables.block.TileEntityCreatingTable;
+
+import javax.annotation.Nonnull;
+
+@SideOnly(Side.CLIENT)
+public final class GuiNormalCreatingTable extends GuiCreatingTable
+{
+	private static final ResourceLocation normalCreatingTexture = new ResourceLocation("textures/gui/container/crafting_table.png");
+
+	public GuiNormalCreatingTable(@Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	{
+		super(tileEntityCreatingTable, normalCreatingTexture, new ContainerNormalCreatingTable(tileEntityCreatingTable, inventoryPlayer));
+		xSize = 176;
+		ySize = 166;
+	}
+}

@@ -1,0 +1,30 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "creatingtables:block_creating_table",
+    "textures": {}
+  },
+  "variants": {
+    "tabletype": {
+      "normal": {
+        "textures": {
+          "side": "creatingtables:blocks/creating_table_side",
+          "bottom": "creatingtables:blocks/creating_table_bottom",
+          "top": "creatingtables:blocks/creating_table_top"
+        }
+      },
+      "extreme": {
+        "textures": {
+          "side": "creatingtables:blocks/extreme_creating_table",
+          "bottom": "creatingtables:blocks/extreme_creating_table",
+          "top": "creatingtables:blocks/extreme_creating_table_top"
+        }
+      }
+    },
+    "normal": [
+    ],
+    "inventory": [
+      {}
+    ]
+  }
+}

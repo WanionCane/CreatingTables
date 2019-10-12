@@ -1,0 +1,16 @@
+[
+{
+  "modid": "creatingtables",
+  "name": "Creating Tables",
+  "description": "Bringing Creating Tables!",
+  "version": "1.12.2-1.0",
+  "mcversion": "${mcversion}",
+  "url": "https://www.curseforge.com/minecraft/mc-mods/creating-tables",
+  "updateUrl": "",
+  "authorList": ["WanionCane"],
+  "credits": "",
+  "logoFile": "CreatingTablesLogo.png",
+  "screenshots": [],
+  "dependencies": []
+}
+]
