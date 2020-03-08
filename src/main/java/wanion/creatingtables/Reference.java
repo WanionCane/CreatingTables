@@ -20,7 +20,7 @@ import static java.io.File.separatorChar;
 
 public final class Reference
 {
-	public static final String MOD_VERSION = "1.12.2-1.0";
+	public static final String MOD_VERSION = "1.12.2-1.1";
 	public static final String DEPENDENCIES = "required-after:wanionlib@[1.12.2-2.4,)";
 	public static final String TARGET_MC_VERSION = "[1.12,]";
 	public static final String CLIENT_PROXY = "wanion.creatingtables.proxy.ClientProxy";

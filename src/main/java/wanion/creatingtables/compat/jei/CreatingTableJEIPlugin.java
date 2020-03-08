@@ -27,14 +27,14 @@ public final class CreatingTableJEIPlugin implements IModPlugin
 	public void register(final IModRegistry modRegistry)
 	{
 		// Normal
-		modRegistry.getRecipeTransferRegistry().addRecipeTransferHandler(new NormalCreatingTransferHandler(), NORMAL);
 		modRegistry.addGhostIngredientHandler(GuiNormalCreatingTable.class, new CreatingGhostHandler<>());
+		modRegistry.getRecipeTransferRegistry().addRecipeTransferHandler(new NormalCreatingTransferHandler(), NORMAL);
 		modRegistry.addRecipeClickArea(GuiNormalCreatingTable.class, 90, 35, 21, 13, NORMAL);
+		// Extreme
+		modRegistry.addGhostIngredientHandler(GuiExtremeCreatingTable.class, new CreatingGhostHandler<>());
 		if (!Loader.isModLoaded("avaritia"))
 			return;
-		// Extreme
 		modRegistry.getRecipeTransferRegistry().addRecipeTransferHandler(new ExtremeCreatingTransferHandler(), EXTREME);
-		modRegistry.addGhostIngredientHandler(GuiExtremeCreatingTable.class, new CreatingGhostHandler<>());
 		modRegistry.addRecipeClickArea(GuiExtremeCreatingTable.class, 172, 95, 3, 6, EXTREME);
 	}
 }
