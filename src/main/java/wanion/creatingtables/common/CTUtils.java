@@ -12,8 +12,6 @@ import gnu.trove.iterator.TIntIterator;
 import gnu.trove.list.TIntList;
 import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.item.ItemStack;
-import org.apache.commons.lang3.text.WordUtils;
-import wanion.creatingtables.Reference;
 import wanion.creatingtables.block.TileEntityCreatingTable;
 import wanion.creatingtables.common.control.ShapeControl;
 import wanion.lib.common.matching.Matching;
@@ -41,7 +39,7 @@ public final class CTUtils
 		scriptBuilder.append(tileEntityCreatingTable.getCTPrefix(shaped));
 		scriptBuilder.append('(');
 		final Matching outputMatching = new Matching(Collections.singletonList(outputStack), 0);
-		scriptBuilder.append('"').append(outputStack.getCount()).append("x.").append(outputStack.getUnlocalizedName()).append(shaped ? ".shaped" : ".shapeless").append("\", ");
+		scriptBuilder.append('"').append(outputStack.getCount()).append("x_").append(outputStack.getUnlocalizedName().replace('.', '_')).append(shaped ? "_shaped" : "_shapeless").append("\", ");
 		if (outputStack.hasTagCompound())
 			outputMatching.setMatcher(new NbtMatcher(outputMatching));
 		scriptBuilder.append(outputMatching.getMatcher().ctFormat());
