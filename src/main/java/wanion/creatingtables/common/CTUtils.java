@@ -14,6 +14,7 @@ import gnu.trove.list.array.TIntArrayList;
 import net.minecraft.item.ItemStack;
 import wanion.creatingtables.block.TileEntityCreatingTable;
 import wanion.creatingtables.common.control.ShapeControl;
+import wanion.lib.common.control.ControlController;
 import wanion.lib.common.matching.Matching;
 import wanion.lib.common.matching.MatchingController;
 import wanion.lib.common.matching.matcher.NbtMatcher;
@@ -35,7 +36,7 @@ public final class CTUtils
 		if (outputStack.isEmpty())
 			return null;
 		final StringBuilder scriptBuilder = new StringBuilder();
-		final boolean shaped = tileEntityCreatingTable.getShapeControl().getState() == ShapeControl.ShapeState.SHAPED;
+		final boolean shaped = tileEntityCreatingTable.getController(ControlController.class).get(ShapeControl.class).getState() == ShapeControl.ShapeState.SHAPED;
 		scriptBuilder.append(tileEntityCreatingTable.getCTPrefix(shaped));
 		scriptBuilder.append('(');
 		final Matching outputMatching = new Matching(Collections.singletonList(outputStack), 0);

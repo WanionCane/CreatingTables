@@ -24,9 +24,9 @@ public final class TileEntityNormalCreatingTable extends TileEntityCreatingTable
 		return Reference.TableType.NORMAL;
 	}
 
+	@Nonnull
 	@Override
-	public String getName()
-	{
+	public String getDefaultName() {
 		return "container.normalcreatingtable.name";
 	}
 

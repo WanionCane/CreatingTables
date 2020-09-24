@@ -20,13 +20,13 @@ import javax.annotation.Nonnull;
 import static wanion.creatingtables.Reference.MOD_ID;
 
 @SideOnly(Side.CLIENT)
-public final class GuiExtremeCreatingTable extends GuiCreatingTable
+public final class GuiExtremeCreatingTable extends GuiCreatingTable<TileEntityExtremeCreatingTable>
 {
 	private static final ResourceLocation extremeCreatingTexture = new ResourceLocation(MOD_ID, "textures/gui/extreme_creating_table.png");
 
-	public GuiExtremeCreatingTable(@Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	public GuiExtremeCreatingTable(@Nonnull final TileEntityExtremeCreatingTable tileEntityExtremeCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
-		super(tileEntityCreatingTable, extremeCreatingTexture, new ContainerExtremeCreatingTable(tileEntityCreatingTable, inventoryPlayer));
+		super(new ContainerExtremeCreatingTable(tileEntityExtremeCreatingTable, inventoryPlayer), extremeCreatingTexture);
 		xSize = 211;
 		ySize = 276;
 	}

@@ -18,13 +18,13 @@ import wanion.creatingtables.block.TileEntityCreatingTable;
 import javax.annotation.Nonnull;
 
 @SideOnly(Side.CLIENT)
-public final class GuiNormalCreatingTable extends GuiCreatingTable
+public final class GuiNormalCreatingTable extends GuiCreatingTable<TileEntityNormalCreatingTable>
 {
 	private static final ResourceLocation normalCreatingTexture = new ResourceLocation("textures/gui/container/crafting_table.png");
 
-	public GuiNormalCreatingTable(@Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	public GuiNormalCreatingTable(@Nonnull final TileEntityNormalCreatingTable tileEntityNormalCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
-		super(tileEntityCreatingTable, normalCreatingTexture, new ContainerNormalCreatingTable(tileEntityCreatingTable, inventoryPlayer));
+		super(new ContainerNormalCreatingTable(tileEntityNormalCreatingTable, inventoryPlayer), normalCreatingTexture);
 		xSize = 176;
 		ySize = 166;
 	}

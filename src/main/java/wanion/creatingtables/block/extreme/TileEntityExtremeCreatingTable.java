@@ -24,9 +24,9 @@ public final class TileEntityExtremeCreatingTable extends TileEntityCreatingTabl
 		return Reference.TableType.EXTREME;
 	}
 
+	@Nonnull
 	@Override
-	public String getName()
-	{
+	public String getDefaultName() {
 		return "container.extremecreatingtable.name";
 	}
 

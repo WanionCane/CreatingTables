@@ -20,7 +20,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import wanion.creatingtables.CreatingTables;
 import wanion.creatingtables.Reference;
-import wanion.creatingtables.block.ContainerCreatingTable;
 import wanion.creatingtables.block.GuiCreatingTable;
 import wanion.creatingtables.block.TileEntityCreatingTable;
 import wanion.creatingtables.common.CTUtils;
@@ -37,19 +36,19 @@ import java.util.List;
 public final class CopyToClipBoardButton extends GuiButton implements IClickAction
 {
 	private final ResourceLocation resourceLocation = Reference.GUI_TEXTURES;
-	private final TileEntityCreatingTable tileEntityCreatingTable;
-	private final GuiCreatingTable guiCreatingTable;
+	private final TileEntityCreatingTable tileEntityBiggerCreatingTable;
+	private final GuiCreatingTable<? extends TileEntityCreatingTable> guiBiggerCreatingTable;
 	private final List<String> baseDescription = new ArrayList<>();
 	private final Slot outputSlot;
 	private boolean success = false;
 
-	public CopyToClipBoardButton(final int buttonId, @Nonnull final GuiCreatingTable guiCreatingTable, final int x, final int y)
+	public CopyToClipBoardButton(final int buttonId, @Nonnull final GuiCreatingTable<? extends TileEntityCreatingTable> guiBiggerCreatingTable, final int x, final int y)
 	{
 		super(buttonId, x, y, 8, 9, Strings.EMPTY);
-		tileEntityCreatingTable = ((ContainerCreatingTable) guiCreatingTable.inventorySlots).getTileEntityCreatingTable();
-		this.guiCreatingTable = guiCreatingTable;
+		tileEntityBiggerCreatingTable = guiBiggerCreatingTable.getContainer().getTile();
+		this.guiBiggerCreatingTable = guiBiggerCreatingTable;
 		this.baseDescription.add(TextFormatting.GOLD + I18n.format("creating.copy"));
-		this.outputSlot = guiCreatingTable.inventorySlots.getSlot(guiCreatingTable.inventorySlots.inventorySlots.size() - 37);
+		this.outputSlot = guiBiggerCreatingTable.inventorySlots.getSlot(guiBiggerCreatingTable.inventorySlots.inventorySlots.size() - 37);
 	}
 
 	public void drawButton(@Nonnull final Minecraft mc, final int mouseX, final int mouseY, final float partialTicks)
@@ -79,7 +78,7 @@ public final class CopyToClipBoardButton extends GuiButton implements IClickActi
 			}
 		} else
 			description.add(ClientHelper.getSuccess());
-		guiCreatingTable.drawHoveringText(description, mouseX - guiCreatingTable.getGuiLeft(), mouseY - guiCreatingTable.getGuiTop());
+		guiBiggerCreatingTable.drawHoveringText(description, mouseX - guiBiggerCreatingTable.getGuiLeft(), mouseY - guiBiggerCreatingTable.getGuiTop());
 	}
 
 	@Override
@@ -87,19 +86,19 @@ public final class CopyToClipBoardButton extends GuiButton implements IClickActi
 	{
 		if (isEmpty() || !outputSlot.getHasStack())
 			return;
-		this.playPressSound(this.guiCreatingTable.mc.getSoundHandler());
+		this.playPressSound(this.guiBiggerCreatingTable.mc.getSoundHandler());
 		success = true;
 		CreatingTables.proxy.getThreadListener().addScheduledTask(() -> {
-			final StringSelection stringSelection = new StringSelection(CTUtils.toCTScript(((ContainerCreatingTable) guiCreatingTable.inventorySlots).getTileEntityCreatingTable()));
+			final StringSelection stringSelection = new StringSelection(CTUtils.toCTScript(tileEntityBiggerCreatingTable));
 			Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 		});
 	}
 
 	private boolean isEmpty()
 	{
-		final int max = tileEntityCreatingTable.getSizeInventory() - 1;
+		final int max = tileEntityBiggerCreatingTable.getSizeInventory() - 1;
 		for (int i = 0; i < max; i++)
-			if (!tileEntityCreatingTable.getStackInSlot(i).isEmpty())
+			if (!tileEntityBiggerCreatingTable.getStackInSlot(i).isEmpty())
 				return false;
 		return true;
 	}

@@ -15,22 +15,20 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import wanion.creatingtables.CreatingTables;
-import wanion.lib.common.ControlMatchingContainer;
 import wanion.lib.common.IGhostAcceptorContainer;
 import wanion.lib.common.IResourceShapedContainer;
-import wanion.lib.common.matching.IMatchingControllerProvider;
-import wanion.lib.common.matching.MatchingController;
+import wanion.lib.common.WContainer;
 import wanion.lib.inventory.slot.MatchingSlot;
 import wanion.lib.inventory.slot.ShapeSlot;
 
 import javax.annotation.Nonnull;
 
-public abstract class ContainerCreatingTable extends ControlMatchingContainer implements IResourceShapedContainer, IGhostAcceptorContainer, IMatchingControllerProvider
+public abstract class ContainerCreatingTable<T extends TileEntityCreatingTable> extends WContainer<T> implements IResourceShapedContainer, IGhostAcceptorContainer
 {
 	private final TileEntityCreatingTable tileEntityCreatingTable;
-	private int playerInventoryEnds, playerInventoryStarts, result, root;
+	private final int playerInventoryEnds, playerInventoryStarts, result, root;
 
-	public ContainerCreatingTable(final int inventoryStartsX, final int inventoryStartsY, final int playerStartsX, final int playerStartsY, final int resultX, final int resultY, @Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	public ContainerCreatingTable(final int inventoryStartsX, final int inventoryStartsY, final int playerStartsX, final int playerStartsY, final int resultX, final int resultY, @Nonnull final T tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
 		super(tileEntityCreatingTable);
 		this.tileEntityCreatingTable = tileEntityCreatingTable;
@@ -51,7 +49,7 @@ public abstract class ContainerCreatingTable extends ControlMatchingContainer im
 
 	@Nonnull
 	@Override
-	public final ItemStack transferStackInSlot(final EntityPlayer entityPlayer, final int slot)
+	public final ItemStack transferStackInSlot(@Nonnull final EntityPlayer entityPlayer, final int slot)
 	{
 		ItemStack itemstack = null;
 		final Slot actualSlot = inventorySlots.get(slot);
@@ -66,7 +64,7 @@ public abstract class ContainerCreatingTable extends ControlMatchingContainer im
 
 	@Nonnull
 	@Override
-	public final ItemStack slotClick(final int slot, final int mouseButton, final ClickType clickType, final EntityPlayer entityPlayer)
+	public final ItemStack slotClick(final int slot, final int mouseButton, @Nonnull final ClickType clickType, @Nonnull final EntityPlayer entityPlayer)
 	{
 		if (slot >= 0 && slot < result) {
 			final Slot actualSlot = inventorySlots.get(slot);
@@ -165,23 +163,5 @@ public abstract class ContainerCreatingTable extends ControlMatchingContainer im
 				resetMatching((MatchingSlot) actualSlot);
 			detectAndSendChanges();
 		}
-	}
-
-	public TileEntityCreatingTable getTileEntityCreatingTable()
-	{
-		return tileEntityCreatingTable;
-	}
-
-	@Nonnull
-	@Override
-	public MatchingController getMatchingController()
-	{
-		return tileEntityCreatingTable.getMatchingController();
-	}
-
-	@Override
-	public final boolean canInteractWith(@Nonnull final EntityPlayer entityPlayer)
-	{
-		return tileEntityCreatingTable.isUsableByPlayer(entityPlayer);
 	}
 }

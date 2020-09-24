@@ -95,9 +95,9 @@ public class CommonProxy implements IGuiHandler
 			return null;
 		switch (((TileEntityCreatingTable) tileEntity).getTableType()) {
 			case NORMAL:
-				return new ContainerNormalCreatingTable((TileEntityCreatingTable) tileEntity, player.inventory);
+				return new ContainerNormalCreatingTable((TileEntityNormalCreatingTable) tileEntity, player.inventory);
 			case EXTREME:
-				return new ContainerExtremeCreatingTable((TileEntityCreatingTable) tileEntity, player.inventory);
+				return new ContainerExtremeCreatingTable((TileEntityExtremeCreatingTable) tileEntity, player.inventory);
 		}
 		return null;
 	}
@@ -110,9 +110,9 @@ public class CommonProxy implements IGuiHandler
 			return null;
 		switch (((TileEntityCreatingTable) tileEntity).getTableType()) {
 			case NORMAL:
-				return new GuiNormalCreatingTable((TileEntityCreatingTable) tileEntity, player.inventory);
+				return new GuiNormalCreatingTable((TileEntityNormalCreatingTable) tileEntity, player.inventory);
 			case EXTREME:
-				return new GuiExtremeCreatingTable((TileEntityCreatingTable) tileEntity, player.inventory);
+				return new GuiExtremeCreatingTable((TileEntityExtremeCreatingTable) tileEntity, player.inventory);
 		}
 		return null;
 	}

@@ -23,11 +23,11 @@ import wanion.lib.common.Util;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public final class ContainerNormalCreatingTable extends ContainerCreatingTable
+public final class ContainerNormalCreatingTable extends ContainerCreatingTable<TileEntityNormalCreatingTable>
 {
-	public ContainerNormalCreatingTable(@Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	public ContainerNormalCreatingTable(@Nonnull final TileEntityNormalCreatingTable tileEntityNormalCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
-		super(30, 17, 8, 84, 124, 35, tileEntityCreatingTable, inventoryPlayer);
+		super(30, 17, 8, 84, 124, 35, tileEntityNormalCreatingTable, inventoryPlayer);
 	}
 
 	@Override

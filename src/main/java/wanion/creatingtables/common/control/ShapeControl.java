@@ -9,9 +9,11 @@ package wanion.creatingtables.common.control;
  */
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
+import wanion.creatingtables.Reference;
 import wanion.lib.common.control.IControlNameable;
 import wanion.lib.common.control.IState;
 import wanion.lib.common.control.IStateNameable;
@@ -31,19 +33,6 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 	public ShapeControl(@Nonnull final ShapeState state)
 	{
 		this.state = state;
-	}
-
-	@Override
-	public void writeToNBT(@Nonnull final NBTTagCompound nbtTagCompound)
-	{
-		nbtTagCompound.setInteger("ShapeControl", state.ordinal());
-	}
-
-	@Override
-	public void readFromNBT(@Nonnull final NBTTagCompound nbtTagCompound)
-	{
-		if (nbtTagCompound.hasKey("ShapeControl"))
-			state = ShapeState.values()[MathHelper.clamp(nbtTagCompound.getInteger("ShapeControl"), 0, ShapeState.values().length - 1)];
 	}
 
 	@Nonnull
@@ -82,7 +71,23 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 	@Override
 	public String getControlName()
 	{
-		return "creating.shape.control";
+		return "bigger.creating.shape.control";
+	}
+
+	@Nonnull
+	@Override
+	public NBTTagCompound writeNBT()
+	{
+		final NBTTagCompound nbtTagCompound = new NBTTagCompound();
+		nbtTagCompound.setInteger("ShapeControl", state.ordinal());
+		return nbtTagCompound;
+	}
+
+	@Override
+	public void readNBT(@Nonnull NBTTagCompound nbtTagCompound)
+	{
+		if (nbtTagCompound.hasKey("ShapeControl"))
+			state = ShapeState.values()[MathHelper.clamp(nbtTagCompound.getInteger("ShapeControl"), 0, ShapeState.values().length - 1)];
 	}
 
 	public enum ShapeState implements IState<ShapeState>, IStateNameable
@@ -107,6 +112,12 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 		}
 
 		@Override
+		public ResourceLocation getTextureResourceLocation()
+		{
+			return Reference.GUI_TEXTURES;
+		}
+
+		@Override
 		public Pair<Integer, Integer> getTexturePos(boolean b)
 		{
 			return new ImmutablePair<>(!b ? 0 : 19, 19 * ordinal());
@@ -116,7 +127,7 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 		@Override
 		public String getStateName()
 		{
-			return "creating.shape.control.state." + name().toLowerCase();
+			return "bigger.creating.shape.control.state." + name().toLowerCase();
 		}
 
 		@Override

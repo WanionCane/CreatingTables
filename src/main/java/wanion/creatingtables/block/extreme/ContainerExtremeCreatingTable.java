@@ -16,11 +16,11 @@ import wanion.creatingtables.common.AvaritiaHelper;
 
 import javax.annotation.Nonnull;
 
-public final class ContainerExtremeCreatingTable extends ContainerCreatingTable
+public final class ContainerExtremeCreatingTable extends ContainerCreatingTable<TileEntityExtremeCreatingTable>
 {
-	public ContainerExtremeCreatingTable(@Nonnull final TileEntityCreatingTable tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
+	public ContainerExtremeCreatingTable(@Nonnull final TileEntityExtremeCreatingTable tileEntityExtremeCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
-		super(8, 18, 8, 194, 183, 90, tileEntityCreatingTable, inventoryPlayer);
+		super(8, 18, 8, 194, 183, 90, tileEntityExtremeCreatingTable, inventoryPlayer);
 	}
 
 	@Override
