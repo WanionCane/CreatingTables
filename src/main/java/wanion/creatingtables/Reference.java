@@ -21,7 +21,7 @@ import static java.io.File.separatorChar;
 public final class Reference
 {
 	public static final String MOD_VERSION = "1.12.2-1.3";
-	public static final String DEPENDENCIES = "required-after:wanionlib@[1.12.2-2.4,)";
+	public static final String DEPENDENCIES = "required-after:wanionlib@[1.12.2-2.5,)";
 	public static final String TARGET_MC_VERSION = "[1.12,]";
 	public static final String CLIENT_PROXY = "wanion.creatingtables.proxy.ClientProxy";
 	public static final String SERVER_PROXY = "wanion.creatingtables.proxy.CommonProxy";
