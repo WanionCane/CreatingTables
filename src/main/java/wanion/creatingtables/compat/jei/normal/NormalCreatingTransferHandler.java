@@ -14,7 +14,11 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
 import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.gui.recipes.RecipeLayout;
+import mezz.jei.transfer.RecipeTransferErrorTooltip;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
 import wanion.creatingtables.CreatingTables;
 import wanion.creatingtables.block.normal.ContainerNormalCreatingTable;
 import wanion.creatingtables.network.CreatingJeiTransferMessage;
@@ -34,13 +38,18 @@ public final class NormalCreatingTransferHandler implements IRecipeTransferHandl
 
 	@Nullable
 	@Override
-	public final IRecipeTransferError transferRecipe(@Nonnull final ContainerNormalCreatingTable container, @Nonnull final IRecipeLayout recipeLayout, @Nonnull final EntityPlayer player, final boolean maxTransfer, final boolean doTransfer)
+	public IRecipeTransferError transferRecipe(@Nonnull final ContainerNormalCreatingTable container, @Nonnull final IRecipeLayout recipeLayout, @Nonnull final EntityPlayer player, final boolean maxTransfer, final boolean doTransfer)
 	{
-		if (!doTransfer)
-			return null;
 		final IRecipeWrapper recipeWrapper = Util.getField(RecipeLayout.class, "recipeWrapper", recipeLayout, IRecipeWrapper.class);
-		if (recipeWrapper instanceof ICraftingRecipeWrapper)
-			CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, ((ICraftingRecipeWrapper) recipeWrapper).getRegistryName()));
+		if (recipeWrapper instanceof ICraftingRecipeWrapper) {
+			final ResourceLocation recipeRegistryName = ((ICraftingRecipeWrapper) recipeWrapper).getRegistryName();
+			if (recipeRegistryName == null)
+				return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.error"));
+			if (!doTransfer)
+				return null;
+			CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, recipeRegistryName));
+		} else
+			return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.unsupported"));
 		return null;
 	}
 }

@@ -39,7 +39,7 @@ import static wanion.creatingtables.Reference.SLASH;
 public final class ExportToFileButton extends GuiButton implements IClickAction
 {
 	private final ResourceLocation resourceLocation = Reference.GUI_TEXTURES;
-	private final TileEntityCreatingTable tileEntityBiggerCreatingTable;
+	private final TileEntityCreatingTable tileEntityCreatingTable;
 	private final GuiCreatingTable<? extends TileEntityCreatingTable> guiCreatingTable;
 	private final File scriptFile;
 	private final List<String> baseDescription = new ArrayList<>();
@@ -51,10 +51,10 @@ public final class ExportToFileButton extends GuiButton implements IClickAction
 	{
 		super(buttonId, x, y, 9, 9, Strings.EMPTY);
 		this.guiCreatingTable = guiCreatingTable;
-		tileEntityBiggerCreatingTable = guiCreatingTable.getContainer().getTile();
-		String scriptName = "scripts" + SLASH + tileEntityBiggerCreatingTable.getTableType().getName() + "Recipes.zs";
+		tileEntityCreatingTable = guiCreatingTable.getContainer().getTile();
+		String scriptName = "scripts" + SLASH + tileEntityCreatingTable.getTableType().getName() + "Recipes.zs";
 		this.scriptFile = new File("." + SLASH + scriptName);
-		this.baseDescription.add(TextFormatting.RED + I18n.format("creating.export") + " " + TextFormatting.GOLD + "“" + scriptName.replace('\\', '/') + "”");
+		this.baseDescription.add(TextFormatting.RED + I18n.format("creating.export") + " " + TextFormatting.GOLD + "\"" + scriptName.replace('\\', '/') + "\"");
 		this.outputSlot = guiCreatingTable.inventorySlots.getSlot(guiCreatingTable.inventorySlots.inventorySlots.size() - 37);
 	}
 
@@ -79,7 +79,7 @@ public final class ExportToFileButton extends GuiButton implements IClickAction
 				problems.add(I18n.format("creating.export.empty"));
 			if (!outputSlot.getHasStack())
 				problems.add(I18n.format("creating.export.no-output"));
-			final String script = CTUtils.toCTScript(tileEntityBiggerCreatingTable);
+			final String script = CTUtils.toCTScript(tileEntityCreatingTable);
 			if (this.script.equals(script))
 				problems.add(I18n.format("creating.export.no-changes"));
 			if (!problems.isEmpty()) {
@@ -102,7 +102,7 @@ public final class ExportToFileButton extends GuiButton implements IClickAction
 		}
 		if (isEmpty())
 			return;
-		final String script = CTUtils.toCTScript(tileEntityBiggerCreatingTable);
+		final String script = CTUtils.toCTScript(tileEntityCreatingTable);
 		if (this.script != null && script != null && !this.script.equals(script)) {
 			this.playPressSound(this.guiCreatingTable.mc.getSoundHandler());
 			this.script = script;
@@ -115,9 +115,9 @@ public final class ExportToFileButton extends GuiButton implements IClickAction
 
 	private boolean isEmpty()
 	{
-		final int max = tileEntityBiggerCreatingTable.getSizeInventory() - 1;
+		final int max = tileEntityCreatingTable.getSizeInventory() - 1;
 		for (int i = 0; i < max; i++)
-			if (!tileEntityBiggerCreatingTable.getStackInSlot(i).isEmpty())
+			if (!tileEntityCreatingTable.getStackInSlot(i).isEmpty())
 				return false;
 		return true;
 	}

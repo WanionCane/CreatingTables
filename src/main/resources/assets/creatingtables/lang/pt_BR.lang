@@ -16,6 +16,9 @@ creating.export.empty=A Receita está Vazia
 creating.export.no-output=A Receita precisa de um Resultado
 creating.export.no-changes=Nenhuma alteração foi feita
 creating.copy=Copiar para Área de Transferência
+creating.remove_old_recipe=Remover a Receita antiga?
+creating.transfer.error=Essa receita não tem um nome válido.
+creating.transfer.unsupported=Essa receita não é suportada.
 
 // Normal
 container.normalcreatingtable.name=Bancada de Criação

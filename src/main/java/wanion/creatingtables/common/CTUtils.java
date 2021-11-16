@@ -15,8 +15,10 @@ import net.minecraft.item.ItemStack;
 import wanion.creatingtables.block.TileEntityCreatingTable;
 import wanion.creatingtables.common.control.ShapeControl;
 import wanion.lib.common.control.ControlController;
+import wanion.lib.common.matching.AbstractMatching;
 import wanion.lib.common.matching.Matching;
 import wanion.lib.common.matching.MatchingController;
+import wanion.lib.common.matching.matcher.AbstractMatcher;
 import wanion.lib.common.matching.matcher.NbtMatcher;
 
 import javax.annotation.Nonnull;
@@ -36,6 +38,8 @@ public final class CTUtils
 		if (outputStack.isEmpty())
 			return null;
 		final StringBuilder scriptBuilder = new StringBuilder();
+		if (tileEntityCreatingTable.removeOldRecipeCheckBox.isChecked() && !tileEntityCreatingTable.old_recipe.isEmpty())
+			scriptBuilder.append(tileEntityCreatingTable.getCTRemovalPrefix()).append("(\"").append(tileEntityCreatingTable.old_recipe.getContent()).append("\");").append(NEW_LINE).append(NEW_LINE);
 		final boolean shaped = tileEntityCreatingTable.getController(ControlController.class).get(ShapeControl.class).getState() == ShapeControl.ShapeState.SHAPED;
 		scriptBuilder.append(tileEntityCreatingTable.getCTPrefix(shaped));
 		scriptBuilder.append('(');
@@ -56,12 +60,10 @@ public final class CTUtils
 				for (int x = 0; x < root; x++) {
 					boolean hasNextX = x < last;
 					final int actualSlot = y * root + x;
-					if (!tileEntityCreatingTable.getStackInSlot(actualSlot).isEmpty()) {
-						final Matching matchingControl = matchingController.getMatching(actualSlot);
-						scriptBuilder.append(matchingControl.getMatcher().ctFormat());
-						if (hasNextX)
-							scriptBuilder.append(", ");
-					} else scriptBuilder.append(hasNextX ? "null, " : "null");
+					final AbstractMatcher<?> matcher = matchingController.getMatching(actualSlot).getMatcher();
+					scriptBuilder.append(matcher.ctFormat());
+					if (hasNextX)
+						scriptBuilder.append(", ");
 				}
 				scriptBuilder.append(hasNextY ? "]," : ']');
 			}

@@ -17,6 +17,10 @@ creating.export.empty=The Recipe is Empty
 creating.export.no-output=The Recipe requires an Output
 creating.export.no-changes=No changes were made
 creating.copy=Copy to Clipboard
+creating.remove_old_recipe=Remove the old Recipe?
+creating.transfer.error=This recipe doesn't have a valid name.
+creating.transfer.unsupported=This recipe isn't supported.
+
 
 // Normal
 container.normalcreatingtable.name=Creating Table

@@ -12,10 +12,13 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
+import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.gui.recipes.RecipeLayout;
+import mezz.jei.transfer.RecipeTransferErrorTooltip;
 import morph.avaritia.compat.jei.extreme.ExtremeRecipeWrapper;
 import morph.avaritia.recipe.AvaritiaRecipeManager;
 import morph.avaritia.recipe.extreme.IExtremeRecipe;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import wanion.creatingtables.CreatingTables;
@@ -38,17 +41,20 @@ public final class ExtremeCreatingTransferHandler implements IRecipeTransferHand
 
 	@Nullable
 	@Override
-	public final IRecipeTransferError transferRecipe(@Nonnull final ContainerExtremeCreatingTable container, @Nonnull final IRecipeLayout recipeLayout, @Nonnull final EntityPlayer player, final boolean maxTransfer, final boolean doTransfer)
+	public IRecipeTransferError transferRecipe(@Nonnull final ContainerExtremeCreatingTable container, @Nonnull final IRecipeLayout recipeLayout, @Nonnull final EntityPlayer player, final boolean maxTransfer, final boolean doTransfer)
 	{
-		if (!doTransfer)
-			return null;
 		final IRecipeWrapper recipeWrapper = Util.getField(RecipeLayout.class, "recipeWrapper", recipeLayout, IRecipeWrapper.class);
 		if (!(recipeWrapper instanceof ExtremeRecipeWrapper))
 			return null;
 		final IExtremeRecipe extremeRecipe = Util.getField(ExtremeRecipeWrapper.class, "recipe", recipeWrapper, IExtremeRecipe.class);
 		for (Map.Entry<ResourceLocation, IExtremeRecipe> extremeEntry : AvaritiaRecipeManager.EXTREME_RECIPES.entrySet()) {
 			if (extremeEntry.getValue() == extremeRecipe) {
-				CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, extremeEntry.getKey()));
+				final ResourceLocation recipeRegistryName = extremeEntry.getKey();
+				if (recipeRegistryName == null)
+					return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.error"));
+				if (!doTransfer)
+					return null;
+				CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, recipeRegistryName));
 				break;
 			}
 		}

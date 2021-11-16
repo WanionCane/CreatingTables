@@ -25,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import wanion.creatingtables.CreatingTables;
@@ -47,6 +48,12 @@ public final class BlockCreatingTable extends BlockContainer
 		setHardness(2.5F).setCreativeTab(CreatingTables.creativeTabs);
 		setRegistryName(new ResourceLocation(Reference.MOD_ID, "creatingtables"));
 		setDefaultState(blockState.getBaseState().withProperty(Reference.TABLE_TYPES, Reference.TableType.NORMAL));
+	}
+
+	@Override
+	public int getLightValue(@Nonnull final IBlockState state, @Nonnull final IBlockAccess world, @Nonnull final BlockPos pos)
+	{
+		return getMetaFromState(state)  == 1 ? 15 : 0;
 	}
 
 	@Override

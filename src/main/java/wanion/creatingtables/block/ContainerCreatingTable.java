@@ -26,13 +26,13 @@ import javax.annotation.Nonnull;
 public abstract class ContainerCreatingTable<T extends TileEntityCreatingTable> extends WContainer<T> implements IResourceShapedContainer, IGhostAcceptorContainer
 {
 	private final TileEntityCreatingTable tileEntityCreatingTable;
-	private final int playerInventoryEnds, playerInventoryStarts, result, root;
+	private final int playerInventoryEnds, playerInventoryStarts, result;
 
 	public ContainerCreatingTable(final int inventoryStartsX, final int inventoryStartsY, final int playerStartsX, final int playerStartsY, final int resultX, final int resultY, @Nonnull final T tileEntityCreatingTable, final InventoryPlayer inventoryPlayer)
 	{
 		super(tileEntityCreatingTable);
 		this.tileEntityCreatingTable = tileEntityCreatingTable;
-		this.root = tileEntityCreatingTable.getRoot();
+		int root = tileEntityCreatingTable.getRoot();
 		for (int y = 0; y < root; y++)
 			for (int x = 0; x < root; x++)
 				addSlotToContainer(new MatchingSlot(tileEntityCreatingTable, y * root + x, inventoryStartsX + (18 * x), inventoryStartsY + (18 * y)));
@@ -129,28 +129,24 @@ public abstract class ContainerCreatingTable<T extends TileEntityCreatingTable> 
 
 	private void resetMatching(@Nonnull final MatchingSlot matchingSlot)
 	{
-		if (CreatingTables.proxy.isServer()) {
-			matchingSlot.getMatching().resetMatcher();
-			detectAndSendChanges();
-		}
+		matchingSlot.getMatching().resetMatcher();
 	}
 
 	@Override
 	public void clearShape()
 	{
-		clearShape(root * root);
+		clearShape(result);
 	}
 
 	private void clearShape(final int endsIn)
 	{
-		for (int i = 0; i < endsIn; i++) {
+		for (int i = 0; i <= endsIn; i++) {
 			final Slot slot = inventorySlots.get(i);
 			if (slot instanceof MatchingSlot) {
 				slot.putStack(ItemStack.EMPTY);
 				resetMatching((MatchingSlot) slot);
 			}
 		}
-		tileEntityCreatingTable.markDirty();
 	}
 
 	@Override

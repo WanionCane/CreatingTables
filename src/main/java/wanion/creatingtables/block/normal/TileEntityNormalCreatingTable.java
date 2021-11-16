@@ -30,6 +30,13 @@ public final class TileEntityNormalCreatingTable extends TileEntityCreatingTable
 		return "container.normalcreatingtable.name";
 	}
 
+	@Nonnull
+	@Override
+	public String getCTRemovalPrefix()
+	{
+		return "recipes.removeByRecipeName";
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override

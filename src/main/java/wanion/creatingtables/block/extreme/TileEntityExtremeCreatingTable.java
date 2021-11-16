@@ -30,6 +30,13 @@ public final class TileEntityExtremeCreatingTable extends TileEntityCreatingTabl
 		return "container.extremecreatingtable.name";
 	}
 
+	@Nonnull
+	@Override
+	public String getCTRemovalPrefix()
+	{
+		return "mods.creatingtables.ExtremeCrafting.removeByRecipeName";
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Nonnull
 	@Override

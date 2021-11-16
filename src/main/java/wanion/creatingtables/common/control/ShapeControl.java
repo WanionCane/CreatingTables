@@ -71,7 +71,7 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 	@Override
 	public String getControlName()
 	{
-		return "bigger.creating.shape.control";
+		return "creating.shape.control";
 	}
 
 	@Nonnull
@@ -127,7 +127,7 @@ public class ShapeControl implements IStateProvider<ShapeControl, ShapeControl.S
 		@Override
 		public String getStateName()
 		{
-			return "bigger.creating.shape.control.state." + name().toLowerCase();
+			return "creating.shape.control.state." + name().toLowerCase();
 		}
 
 		@Override

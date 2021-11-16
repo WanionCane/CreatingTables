@@ -16,20 +16,31 @@ import wanion.creatingtables.Reference;
 import wanion.creatingtables.common.control.ShapeControl;
 import wanion.lib.common.WTileEntity;
 import wanion.lib.common.control.ControlController;
+import wanion.lib.common.field.CheckBox;
+import wanion.lib.common.field.FieldController;
+import wanion.lib.common.field.text.TextField;
 import wanion.lib.common.matching.IMatchingInventory;
 import wanion.lib.common.matching.Matching;
 import wanion.lib.common.matching.MatchingController;
 
 import javax.annotation.Nonnull;
 
-public abstract class TileEntityCreatingTable extends WTileEntity implements IMatchingInventory {
+public abstract class TileEntityCreatingTable extends WTileEntity implements IMatchingInventory
+{
+	public final ShapeControl shapeControl = new ShapeControl();
+	public final CheckBox removeOldRecipeCheckBox = new CheckBox("creating.remove_old_recipe");
+	public final TextField old_recipe = new TextField("old.recipe.name");
+
 	public TileEntityCreatingTable()
 	{
 		final int max = getSizeInventory() - 1;
 		final MatchingController matchingController = getController(MatchingController.class);
 		for (int i = 0; i < max; i++)
 			matchingController.add(new Matching(itemStacks, i));
-		getController(ControlController.class).add(new ShapeControl());
+		getController(ControlController.class).add(shapeControl);
+		final FieldController fieldController = getController(FieldController.class);
+		fieldController.add(removeOldRecipeCheckBox);
+		fieldController.add(old_recipe);
 	}
 
 	public final int getRoot()
@@ -67,11 +78,16 @@ public abstract class TileEntityCreatingTable extends WTileEntity implements IMa
 
 	@SideOnly(Side.CLIENT)
 	@Nonnull
+	public abstract String getCTRemovalPrefix();
+
+	@SideOnly(Side.CLIENT)
+	@Nonnull
 	public abstract String getCTPrefix(final boolean shaped);
 
 	@Nonnull
 	@Override
-	public MatchingController getMatchingController() {
+	public MatchingController getMatchingController()
+	{
 		return getController(MatchingController.class);
 	}
 }

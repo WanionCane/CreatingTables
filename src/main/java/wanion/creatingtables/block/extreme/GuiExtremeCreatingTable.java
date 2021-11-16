@@ -14,6 +14,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import wanion.creatingtables.block.GuiCreatingTable;
 import wanion.creatingtables.block.TileEntityCreatingTable;
+import wanion.lib.client.gui.field.CheckBoxWElement;
+import wanion.lib.common.field.CheckBox;
 
 import javax.annotation.Nonnull;
 
@@ -29,5 +31,6 @@ public final class GuiExtremeCreatingTable extends GuiCreatingTable<TileEntityEx
 		super(new ContainerExtremeCreatingTable(tileEntityExtremeCreatingTable, inventoryPlayer), extremeCreatingTexture);
 		xSize = 211;
 		ySize = 276;
+		addElement(new CheckBoxWElement((CheckBox) getField("creating.remove_old_recipe"), this, guiLeft + outputSlot.xPos - 10, guiTop + outputSlot.yPos - 50));
 	}
 }

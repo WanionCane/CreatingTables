@@ -10,7 +10,6 @@ package wanion.creatingtables.block;
 
 import joptsimple.internal.Strings;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -23,9 +22,11 @@ import wanion.creatingtables.client.button.*;
 import wanion.creatingtables.common.control.ShapeControl;
 import wanion.lib.client.ClientHelper;
 import wanion.lib.client.gui.WGuiContainer;
+import wanion.lib.client.gui.field.CheckBoxWElement;
 import wanion.lib.common.IClickAction;
 import wanion.lib.common.WContainer;
-import wanion.lib.common.matching.Matching;
+import wanion.lib.common.field.CheckBox;
+import wanion.lib.common.matching.AbstractMatching;
 import wanion.lib.inventory.slot.MatchingSlot;
 
 import javax.annotation.Nonnull;
@@ -37,10 +38,10 @@ import java.util.List;
 public abstract class GuiCreatingTable<T extends TileEntityCreatingTable> extends WGuiContainer<T>
 {
 	private final Slot firstPlayerSlot = inventorySlots.getSlot(inventorySlots.inventorySlots.size() - 36);
-	private final Slot outputSlot = inventorySlots.getSlot(firstPlayerSlot.slotNumber - 1);
 	private final List<String> matchingDescription;
 	private final List<String> outputDescription;
 	private final ShapeControlWButton shapeControlWButton;
+	protected final Slot outputSlot = inventorySlots.getSlot(firstPlayerSlot.slotNumber - 1);
 
 	public GuiCreatingTable(@Nonnull final WContainer<T> container, @Nonnull final ResourceLocation guiTexture)
 	{
@@ -93,7 +94,7 @@ public abstract class GuiCreatingTable<T extends TileEntityCreatingTable> extend
 		final FontRenderer font = stack.getItem().getFontRenderer(stack);
 		GuiUtils.preItemToolTip(stack);
 		final List<String> toolTip = this.getItemToolTip(stack);
-		final Matching matching = matchingSlot.getMatching();
+		final AbstractMatching<?> matching = matchingSlot.getMatching();
 		toolTip.add(Strings.EMPTY);
 		toolTip.add(TextFormatting.RED + I18n.format(matching.getControlName()) + ": " + TextFormatting.WHITE + matching.getMatcher().getDescription());
 		toolTip.addAll(matchingDescription);

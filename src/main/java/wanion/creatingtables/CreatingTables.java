@@ -22,6 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import wanion.creatingtables.block.BlockCreatingTable;
 import wanion.creatingtables.proxy.CommonProxy;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 import static wanion.creatingtables.Reference.*;
@@ -33,6 +34,7 @@ public class CreatingTables
 	public static final CreativeTabs creativeTabs = new CreativeTabs(MOD_ID)
 	{
 		@Override
+		@Nonnull
 		@SideOnly(Side.CLIENT)
 		public ItemStack getTabIconItem()
 		{
