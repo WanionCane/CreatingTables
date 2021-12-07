@@ -36,9 +36,7 @@ import wanion.creatingtables.block.extreme.TileEntityExtremeCreatingTable;
 import wanion.creatingtables.block.normal.ContainerNormalCreatingTable;
 import wanion.creatingtables.block.normal.GuiNormalCreatingTable;
 import wanion.creatingtables.block.normal.TileEntityNormalCreatingTable;
-import wanion.creatingtables.network.ClearShapeMessage;
 import wanion.creatingtables.network.CreatingGhostTransferMessage;
-import wanion.creatingtables.network.CreatingJeiTransferMessage;
 
 import javax.annotation.Nonnull;
 
@@ -55,12 +53,8 @@ public class CommonProxy implements IGuiHandler
 		GameRegistry.registerTileEntity(TileEntityNormalCreatingTable.class, new ResourceLocation(MOD_ID, "normalcreatingtable"));
 		GameRegistry.registerTileEntity(TileEntityExtremeCreatingTable.class, new ResourceLocation(MOD_ID, "extremecreatingtable"));
 		int d = 0;
-		networkWrapper.registerMessage(ClearShapeMessage.Handler.class, ClearShapeMessage.class, d++, Side.SERVER);
-		networkWrapper.registerMessage(ClearShapeMessage.Handler.class, ClearShapeMessage.class, d++, Side.CLIENT);
 		networkWrapper.registerMessage(CreatingGhostTransferMessage.Handler.class, CreatingGhostTransferMessage.class, d++, Side.SERVER);
-		networkWrapper.registerMessage(CreatingGhostTransferMessage.Handler.class, CreatingGhostTransferMessage.class, d++, Side.CLIENT);
-		networkWrapper.registerMessage(CreatingJeiTransferMessage.Handler.class, CreatingJeiTransferMessage.class, d++, Side.SERVER);
-		networkWrapper.registerMessage(CreatingJeiTransferMessage.Handler.class, CreatingJeiTransferMessage.class, d, Side.CLIENT);
+		networkWrapper.registerMessage(CreatingGhostTransferMessage.Handler.class, CreatingGhostTransferMessage.class, d, Side.CLIENT);
 	}
 
 	public void init() {}

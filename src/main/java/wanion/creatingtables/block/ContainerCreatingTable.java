@@ -140,13 +140,16 @@ public abstract class ContainerCreatingTable<T extends TileEntityCreatingTable> 
 
 	private void clearShape(final int endsIn)
 	{
-		for (int i = 0; i <= endsIn; i++) {
+		for (int i = 0; i < endsIn; i++) {
 			final Slot slot = inventorySlots.get(i);
 			if (slot instanceof MatchingSlot) {
 				slot.putStack(ItemStack.EMPTY);
 				resetMatching((MatchingSlot) slot);
 			}
 		}
+		inventorySlots.get(endsIn).putStack(ItemStack.EMPTY);
+		tileEntityCreatingTable.old_recipe.clear();
+		detectAndSendChanges();
 	}
 
 	@Override

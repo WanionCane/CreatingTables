@@ -17,12 +17,11 @@ import mezz.jei.gui.recipes.RecipeLayout;
 import mezz.jei.transfer.RecipeTransferErrorTooltip;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import wanion.creatingtables.CreatingTables;
 import wanion.creatingtables.block.normal.ContainerNormalCreatingTable;
-import wanion.creatingtables.network.CreatingJeiTransferMessage;
 import wanion.lib.common.Util;
+import wanion.lib.network.DefineShapeMessage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -47,7 +46,7 @@ public final class NormalCreatingTransferHandler implements IRecipeTransferHandl
 				return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.error"));
 			if (!doTransfer)
 				return null;
-			CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, recipeRegistryName));
+			DefineShapeMessage.sendToServer(container, recipeRegistryName);
 		} else
 			return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.unsupported"));
 		return null;

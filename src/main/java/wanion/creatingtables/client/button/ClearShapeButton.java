@@ -19,9 +19,9 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import wanion.creatingtables.CreatingTables;
-import wanion.creatingtables.network.ClearShapeMessage;
 import wanion.lib.Reference;
 import wanion.lib.common.IClickAction;
+import wanion.lib.network.ClearShapeMessage;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +55,7 @@ public final class ClearShapeButton extends GuiButton implements IClickAction
 	@Override
 	public void action(boolean b)
 	{
+		ClearShapeMessage.sendToServer(this.guiContainer.inventorySlots);
 		this.playPressSound(this.guiContainer.mc.getSoundHandler());
-		CreatingTables.networkWrapper.sendToServer(new ClearShapeMessage(guiContainer.inventorySlots.windowId));
 	}
 }

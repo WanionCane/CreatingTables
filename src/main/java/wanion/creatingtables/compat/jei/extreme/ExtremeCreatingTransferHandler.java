@@ -12,7 +12,6 @@ import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.transfer.IRecipeTransferError;
 import mezz.jei.api.recipe.transfer.IRecipeTransferHandler;
-import mezz.jei.api.recipe.wrapper.ICraftingRecipeWrapper;
 import mezz.jei.gui.recipes.RecipeLayout;
 import mezz.jei.transfer.RecipeTransferErrorTooltip;
 import morph.avaritia.compat.jei.extreme.ExtremeRecipeWrapper;
@@ -23,8 +22,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import wanion.creatingtables.CreatingTables;
 import wanion.creatingtables.block.extreme.ContainerExtremeCreatingTable;
-import wanion.creatingtables.network.CreatingJeiTransferMessage;
 import wanion.lib.common.Util;
+import wanion.lib.network.DefineShapeMessage;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -54,7 +53,7 @@ public final class ExtremeCreatingTransferHandler implements IRecipeTransferHand
 					return new RecipeTransferErrorTooltip(I18n.format("creating.transfer.error"));
 				if (!doTransfer)
 					return null;
-				CreatingTables.networkWrapper.sendToServer(new CreatingJeiTransferMessage(container.windowId, recipeRegistryName));
+				DefineShapeMessage.sendToServer(container, recipeRegistryName);
 				break;
 			}
 		}
