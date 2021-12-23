@@ -36,7 +36,7 @@ public abstract class TileEntityCreatingTable extends WTileEntity implements IMa
 		final int max = getSizeInventory() - 1;
 		final MatchingController matchingController = getController(MatchingController.class);
 		for (int i = 0; i < max; i++)
-			matchingController.add(new Matching(itemStacks, i));
+			matchingController.add(new Matching(itemStacks, i, true));
 		getController(ControlController.class).add(shapeControl);
 		final FieldController fieldController = getController(FieldController.class);
 		fieldController.add(removeOldRecipeCheckBox);
